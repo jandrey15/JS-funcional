@@ -7,7 +7,7 @@ const tag = t => content => `<${t}>${content}</${t}>`
 console.log(tag('h1')('Title')) // <h1>Title</h1>
 */
 
-const attrsToString = (obj = {}) => {
+/* const attrsToString = (obj = {}) => {
   const keys = Object.keys(obj) // Devuelve un array -> ["class", "id"]
   const attrs = []
   // console.log(keys)
@@ -21,7 +21,13 @@ const attrsToString = (obj = {}) => {
   const string = attrs.join(' ') // Unimos el array para obtener = "class="title" id="hello""
 
   return string
-}
+} */
+
+// Forma aplicando programación declarativa 
+const attrsToString = (obj = {}) =>
+  Object.keys(obj)
+    .map(attr => `${attr}="${obj[attr]}"`)
+    .join(' ')
 
 // attrsToString({class: 'title', id: 'hello' })
 
@@ -46,12 +52,15 @@ const tagAttrs = obj => (content = '') =>
   // Result = <h1 class="title" id="title-id">Title content</h1>
 */
 
-const tag = t => {
+/* const tag = t => {
   if(typeof t === 'string') {
     return tagAttrs({ tag: t })
   }
   return tagAttrs(t)
-}
+} */
+
+// Forma aplicando programación declarativa 
+const tag = t => typeof t === 'string' ? tagAttrs({ tag: t }) : tagAttrs(t)
 
 const trashIcon = tag({tag: 'i', attrs: {class: 'fas fa-trash-alt'}})('')
 
